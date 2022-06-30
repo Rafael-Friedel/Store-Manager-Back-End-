@@ -3,7 +3,7 @@
     "_id": "0ae01e6c-05bc-4d40-a4ab-a5529e7c5eea",
     "colId": "history",
     "containerId": "",
-    "name": "localhost:/3000/products",
+    "name": "getproductbyid",
     "url": "localhost:/3000/products",
     "method": "GET",
     "sortNum": 0,
@@ -17,14 +17,33 @@
     "_id": "346a8163-9583-4ee2-96c3-69121af04cf6",
     "colId": "history",
     "containerId": "",
-    "name": "localhost/3000/products",
-    "url": "localhost:3000/products/4",
+    "name": "get all product",
+    "url": "localhost:3000/products",
     "method": "GET",
     "sortNum": 0,
     "created": "2022-06-29T18:42:43.292Z",
-    "modified": "2022-06-29T20:50:44.876Z",
+    "modified": "2022-06-30T15:35:45.522Z",
     "headers": [],
     "params": [],
+    "tests": []
+  },
+  {
+    "_id": "967e61b6-24d2-418b-910f-96cc67c97682",
+    "colId": "history",
+    "containerId": "",
+    "name": "postProduct",
+    "url": "localhost:3000/products",
+    "method": "POST",
+    "sortNum": 0,
+    "created": "2022-06-29T22:12:42.483Z",
+    "modified": "2022-06-30T16:26:13.100Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": " {\n    \"name\": \"ProdutoX\"\n  }",
+      "form": []
+    },
     "tests": []
   }
 ]
