@@ -1,5 +1,6 @@
 const express = require('express');
 const { productsController } = require('./controllers/productsController');
+const { saleController } = require('./controllers/saleController');
 const db = require('./models/db');
 const { productsService } = require('./services/productsService');
 
@@ -38,39 +39,9 @@ app.post('/sales', async (req, res) => {
   res.status(200).json({ id: insertId, itemsSold: items });
 });
 
-app.get('/sales/:id', async (req, res) => {
-  const { id } = req.params;
-  const query = `SELECT sp.sale_id, sp.product_id, sp.quantity, s.date
-      FROM StoreManager.sales_products AS sp
-      INNER JOIN StoreManager.sales AS s
-      ON s.id = sp.sale_id
-      WHERE sp.sale_id = ?
-      ORDER BY sp.sale_id, sp.product_id;`;
-  const [sale] = await db.query(query, [id]);
-  if (sale.length === 0) return res.status(404).json({ message: 'Sale not found' });
-  const result = sale.map(({ date, product_id: productId, quantity }) => ({
-    date,
-    productId,
-    quantity,
-  }));
-  res.status(200).json(result);
-});
+app.get('/sales/:id', saleController.getById);
 
-app.get('/sales', async (req, res) => {
-  const query = `SELECT sp.sale_id, sp.product_id, sp.quantity, s.date
-      FROM StoreManager.sales_products AS sp
-      INNER JOIN StoreManager.sales AS s
-      ON s.id = sp.sale_id
-      ORDER BY sp.sale_id, sp.product_id;`;
-  const [allSales] = await db.query(query);
-  const sales = allSales.map((s) => ({
-    saleId: s.sale_id,
-    productId: s.product_id,
-    quantity: s.quantity,
-    date: s.date,
-  }));
-  res.status(200).json(sales);
-});
+app.get('/sales', saleController.getAll);
 
 // não remova essa exportação, é para o avaliador funcionar
 // você pode registrar suas rotas normalmente, como o exemplo acima
