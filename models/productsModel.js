@@ -12,7 +12,7 @@ const productsModel = {
     return product;
   },
   async add(name) {
-    const query = 'INSERT INTO StoreManager.products (name) values (?)';
+    const query = 'INSERT INTO StoreManager.products (name) VALUES (?)';
     const [{ insertId }] = await db.query(query, [name]);
     return { id: insertId, name };
   },

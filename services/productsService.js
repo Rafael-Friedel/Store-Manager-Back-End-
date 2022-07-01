@@ -10,7 +10,8 @@ const productsService = {
 
   async getById(id) {
     const product = await productsModel.getById(id);
-    return product;
+    if (!product) return { code: 404, message: 'Product not found' };
+    return { code: 200, product };
   },
 
   validateParamsId: runSchema(Joi.object({
@@ -18,8 +19,12 @@ const productsService = {
   }).required()),
 
   async add(name) {
+    if (!name) return { message: '"name" is required', code: 400 };
+    if (name.length < 5) {
+      return { message: '"name" length must be at least 5 characters long', code: 422 };
+    }
     const product = await productsModel.add(name);
-    return product;
+    return { product, code: 201 };
   },
 
   validateBodyAdd: runSchema(Joi.object({
