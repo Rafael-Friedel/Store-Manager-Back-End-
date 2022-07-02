@@ -22,7 +22,7 @@
     "method": "GET",
     "sortNum": 0,
     "created": "2022-06-29T18:42:43.292Z",
-    "modified": "2022-07-02T19:38:01.840Z",
+    "modified": "2022-07-02T20:29:57.786Z",
     "headers": [],
     "params": [],
     "tests": []
@@ -36,12 +36,12 @@
     "method": "POST",
     "sortNum": 0,
     "created": "2022-06-29T22:12:42.483Z",
-    "modified": "2022-07-02T19:00:49.236Z",
+    "modified": "2022-07-02T20:00:21.686Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": " {\n   \n  }",
+      "raw": " {\n    \"name\": \"ProdutoX\"\n  }",
       "form": []
     },
     "tests": []
@@ -98,18 +98,32 @@
     "colId": "history",
     "containerId": "",
     "name": "put products",
-    "url": "localhost:3000/products/3",
+    "url": "localhost:3000/products/4",
     "method": "PUT",
     "sortNum": 0,
     "created": "2022-07-02T19:09:56.930Z",
-    "modified": "2022-07-02T19:38:11.971Z",
+    "modified": "2022-07-02T19:46:26.480Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \n}",
+      "raw": "{\n    \"name\": \"XABLAUU\"\n}",
       "form": []
     },
+    "tests": []
+  },
+  {
+    "_id": "c95b9960-aa7a-4627-8541-1b90acd97241",
+    "colId": "history",
+    "containerId": "",
+    "name": "delete product",
+    "url": "localhost:3000/products/3",
+    "method": "DELETE",
+    "sortNum": 0,
+    "created": "2022-07-02T19:58:59.859Z",
+    "modified": "2022-07-02T20:30:06.249Z",
+    "headers": [],
+    "params": [],
     "tests": []
   }
 ]

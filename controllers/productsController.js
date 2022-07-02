@@ -26,6 +26,13 @@ const productsController = {
     if (update.message) return res.status(update.code).json({ message: update.message });
     res.status(update.code).json(update.response);
   },
+
+  async delete(req, res) {
+    const { id } = req.params;
+    const deleted = await productsService.delete(id);
+    if (deleted.message) return res.status(deleted.code).json({ message: deleted.message });
+    res.sendStatus(deleted.code);
+  },
 };
 
 module.exports = {

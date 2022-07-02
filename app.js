@@ -25,20 +25,8 @@ app.get('/sales/:id', saleController.getById);
 app.get('/sales', saleController.getAll);
 
 app.put('/products/:id', productsController.update);
-//   const { id } = req.params;
-//   const { name } = req.body;
-//   const valid = validName(name);
-//   const allProducts = await productsService.listAll();
-//   console.log(` allProducts : ${allProducts}`);
-//   const exist = allProducts.some((p) => p.id === Number(id));
-//   console.log(` exist : ${exist}`);
-//   if (!exist) return res.status(404).json({ message: 'Product not found' });
-//   // { message: 'Product not found', code: 404 };
-//   if (valid.message) return res.status(valid.code).json({ message: valid.message });
-//   // valid;
 
-//   res.status(200).json({ id, name });
-// });
+app.delete('/products/:id', productsController.delete);
 
 // não remova essa exportação, é para o avaliador funcionar
 // você pode registrar suas rotas normalmente, como o exemplo acima

@@ -33,14 +33,27 @@ const productsService = {
     return { product, code: 201 };
   },
 
-  async update(name, id) {
-    const valid = validName(name);
+  async exist(id) {
     const allProducts = await productsService.listAll();
     const exist = allProducts.some((p) => p.id === Number(id));
     if (!exist) return { message: 'Product not found', code: 404 };
+    return true;
+  },
+
+  async update(name, id) {
+    const valid = validName(name);
+    const existProduct = await productsService.exist(id);
+    if (existProduct.message) return { message: 'Product not found', code: 404 };
     if (valid.message) return valid;
     await productsModel.update(name, id);
     return { code: 200, response: { id, name } };
+  },
+
+  async delete(id) {
+    const existProduct = await productsService.exist(id);
+    if (existProduct.message) return { message: 'Product not found', code: 404 };
+    await productsModel.delete(id);
+    return { code: 204 };
   },
 
   validateBodyAdd: runSchema(Joi.object({
