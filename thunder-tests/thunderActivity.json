@@ -22,7 +22,7 @@
     "method": "GET",
     "sortNum": 0,
     "created": "2022-06-29T18:42:43.292Z",
-    "modified": "2022-06-30T15:35:45.522Z",
+    "modified": "2022-07-02T00:16:53.026Z",
     "headers": [],
     "params": [],
     "tests": []
@@ -55,12 +55,12 @@
     "method": "POST",
     "sortNum": 0,
     "created": "2022-06-30T19:26:24.006Z",
-    "modified": "2022-06-30T21:23:31.540Z",
+    "modified": "2022-07-02T00:42:30.148Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "[\n    {\n      \"productId\": 1,\n      \"quantity\":1\n    },\n    {\n      \"productId\": 2,\n      \"quantity\":5\n    }\n  ]",
+      "raw": "[\n    {\n      \"productId\": 3,\n      \"quantity\": 1\n    },\n    {\n      \"productId\": 3,\n      \"quantity\":1\n    }\n  ]",
       "form": []
     },
     "tests": []

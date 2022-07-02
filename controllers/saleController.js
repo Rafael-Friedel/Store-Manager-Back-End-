@@ -12,6 +12,19 @@ const saleController = {
     if (message) return res.status(code).json({ message });
     res.status(code).json(result);
   },
+
+  async addSaleProducts(req, res) {
+    const { body } = req;
+    const validation = await saleService.validationsBody(body);
+    console.log(validation);
+    const valid = validation.find((v) => v.message);
+    console.log(valid);
+    if (valid) {
+      return res.status(valid.code).json({ message: valid.message });
+    }
+    const id = await saleService.addSaleProduct(body);
+    res.status(201).json({ id, itemsSold: body });
+  },
 };
 
 module.exports = { saleController };

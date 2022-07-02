@@ -1,8 +1,6 @@
 const express = require('express');
 const { productsController } = require('./controllers/productsController');
 const { saleController } = require('./controllers/saleController');
-const db = require('./models/db');
-const { productsService } = require('./services/productsService');
 
 const app = express();
 app.use(express.json());
@@ -18,26 +16,7 @@ app.get('/products/:id', productsController.getById);
 
 app.post('/products', productsController.newProduct);
 
-app.post('/sales', async (req, res) => {
-  const querySales = 'INSERT INTO StoreManager.sales (date) values (NOW())';
-  const [{ insertId }] = await db.query(querySales);
-  const querySalesProducts = `INSERT INTO StoreManager.sales_products 
-  (sale_id, product_id, quantity) values(?,?,?)`;
-  const allProducts = await productsService.listAll();
-  const items = req.body.map(({ productId, quantity }) => {
-    if (!productId) return res.status(400).json({ message: '"productId" is required' });
-    const exist = allProducts.some(({ id }) => id === productId);
-    if (!exist) return res.status(404).json({ message: 'Product not found' });
-    if (quantity < 1) {
-      return res.status(422).json({ message: '"quantity" must be greater than or equal to 1' });
-    }
-    if (!quantity) return res.status(400).json({ message: '"quantity" is required' });
-    db.query(querySalesProducts, [insertId, productId, quantity]);
-    return { productId, quantity };
-  });
-
-  res.status(200).json({ id: insertId, itemsSold: items });
-});
+app.post('/sales', saleController.addSaleProducts);
 
 app.get('/sales/:id', saleController.getById);
 
