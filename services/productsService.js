@@ -2,6 +2,14 @@ const Joi = require('joi');
 const { productsModel } = require('../models/productsModel');
 const { runSchema } = require('./validators');
 
+const validName = (name) => { 
+  if (!name) return { message: '"name" is required', code: 400 };
+  if (name.length < 5) {
+    return { message: '"name" length must be at least 5 characters long', code: 422 };
+  }
+  return 'name válido';
+};
+
 const productsService = {
   async listAll() {
     const allProducts = await productsModel.getAll();
@@ -19,10 +27,8 @@ const productsService = {
   }).required()),
 
   async add(name) {
-    if (!name) return { message: '"name" is required', code: 400 };
-    if (name.length < 5) {
-      return { message: '"name" length must be at least 5 characters long', code: 422 };
-    }
+    const valid = validName(name);
+    if (valid.message) return valid;
     const product = await productsModel.add(name);
     return { product, code: 201 };
   },
@@ -32,6 +38,4 @@ const productsService = {
   }).validate({ name: '123456' })),
 };
 
-module.exports = {
-  productsService,
-};
+module.exports = { productsService, validName };

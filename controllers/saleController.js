@@ -16,9 +16,7 @@ const saleController = {
   async addSaleProducts(req, res) {
     const { body } = req;
     const validation = await saleService.validationsBody(body);
-    console.log(validation);
     const valid = validation.find((v) => v.message);
-    console.log(valid);
     if (valid) {
       return res.status(valid.code).json({ message: valid.message });
     }

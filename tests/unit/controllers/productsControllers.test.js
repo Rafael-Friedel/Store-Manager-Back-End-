@@ -11,8 +11,8 @@ describe('controllers/productsController', () => {
 
   describe('getAll', () => {
     it('deve retornar uma lista', () => {
-      sinon.stub(productsService, 'listAll').resolves();
-      // expect
+      sinon.stub(productsService, 'listAll').resolves([]);
+      chai.expect(productsController.getAll()).to.be.an('array');
     });
   });
 });
