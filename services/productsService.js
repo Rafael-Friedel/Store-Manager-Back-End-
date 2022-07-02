@@ -33,6 +33,16 @@ const productsService = {
     return { product, code: 201 };
   },
 
+  async update(name, id) {
+    const valid = validName(name);
+    const allProducts = await productsService.listAll();
+    const exist = allProducts.some((p) => p.id === Number(id));
+    if (!exist) return { message: 'Product not found', code: 404 };
+    if (valid.message) return valid;
+    await productsModel.update(name, id);
+    return { code: 200, response: { id, name } };
+  },
+
   validateBodyAdd: runSchema(Joi.object({
     name: Joi.string().min(5).required(),
   }).validate({ name: '123456' })),

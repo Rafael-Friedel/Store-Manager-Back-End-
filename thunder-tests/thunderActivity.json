@@ -22,7 +22,7 @@
     "method": "GET",
     "sortNum": 0,
     "created": "2022-06-29T18:42:43.292Z",
-    "modified": "2022-07-02T19:28:06.890Z",
+    "modified": "2022-07-02T19:38:01.840Z",
     "headers": [],
     "params": [],
     "tests": []
@@ -98,16 +98,16 @@
     "colId": "history",
     "containerId": "",
     "name": "put products",
-    "url": "localhost:3000/products/4",
+    "url": "localhost:3000/products/3",
     "method": "PUT",
     "sortNum": 0,
     "created": "2022-07-02T19:09:56.930Z",
-    "modified": "2022-07-02T19:27:53.225Z",
+    "modified": "2022-07-02T19:38:11.971Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"name\": \"XABLAU\"\n}",
+      "raw": "{\n  \n}",
       "form": []
     },
     "tests": []

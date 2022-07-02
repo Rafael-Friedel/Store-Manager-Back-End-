@@ -18,6 +18,14 @@ const productsController = {
     if (message) res.status(code).json({ message });
     res.status(code).json(product);
   },
+
+  async update(req, res) {
+    const { id } = req.params;
+    const { name } = req.body;
+    const update = await productsService.update(name, id);
+    if (update.message) return res.status(update.code).json({ message: update.message });
+    res.status(update.code).json(update.response);
+  },
 };
 
 module.exports = {
