@@ -14,6 +14,15 @@ describe('models/productsModel', () => {
       sinon.stub(db, 'query').resolves([[{}]]);
       chai.expect(productsModel.getAll()).to.eventually.be.true;
     });
+
+    it('deve disparar um erro caso falhe o mysql', () => {
+      sinon.stub(db, 'query').rejects();
+      chai.expect(productsModel.getAll()).to.eventually.be.rejected;
+    });
+    it('deve retornar undefined se não encontrar o produto', () => {
+      sinon.stub(db, 'query').resolves({});
+      chai.expect(productsModel.getAll()).to.eventually.be.false;
+    });
   });
 
   describe('getById', () => {
@@ -22,40 +31,72 @@ describe('models/productsModel', () => {
       chai.expect(productsModel.getById(1)).to.eventually.be.true;
     });
     it('deve disparar um erro caso falhe o mysql', () => {
-      sinon.stub(db, 'query').resolves([]);
+      sinon.stub(db, 'query').rejects();
       chai.expect(productsModel.getById(1)).to.eventually.be.rejected;
     });
     it('deve retornar undefined se não encontrar o produto', () => {
-      sinon.stub(db, 'query').resolves({});
+      sinon.stub(db, 'query').resolves(undefined);
       chai.expect(productsModel.getById(1)).to.eventually.be.false;
     });
   });
 
   describe('add', () => {
-    it('deve adicionar um produto', () => {
+    it('deve adicionar um objeto', () => {
       sinon.stub(db, 'query').resolves({});
       chai.expect(productsModel.add('produto')).to.eventually.be.true;
     });
-  });
-
-  describe('exist', () => {
-    it('deve retornar um true', () => {
-      sinon.stub(db, 'query').resolves(true);
-      chai.expect(productsModel.exist(1)).to.eventually.be.true;
+    it('deve disparar um erro caso falhe o mysql', () => {
+      sinon.stub(db, 'query').rejects();
+      chai.expect(productsModel.add('produto')).to.eventually.be.rejected;
+    });
+    it('deve retornar undefined se não encontrar o produto', () => {
+      sinon.stub(db, 'query').resolves(undefined);
+      chai.expect(productsModel.add('produto')).to.eventually.be.false;
     });
   });
 
+  // describe('exist', () => {
+  //   it('deve retornar um true', () => {
+  //     sinon.stub(db, 'query').resolves(true);
+  //     chai.expect(productsModel.exist(1)).to.eventually.be.true;
+  //   });
+  //   it('deve disparar um erro caso falhe o mysql', () => {
+  //     sinon.stub(db, 'query').rejects();
+  //     chai.expect(productsModel.exist(1)).to.eventually.be.rejected;
+  //   });
+  //   it('deve retornar undefined se não encontrar o produto', () => {
+  //     sinon.stub(db, 'query').resolves(undefined);
+  //     chai.expect(productsModel.exist(1)).to.eventually.be.false;
+  //   });
+  // });
+
   describe('update', () => {
-    it('deve atualizar um produto', () => {
-      sinon.stub(db, 'query').resolves({});
+    it('deve retornar true', () => {
+      sinon.stub(db, 'query').resolves(true);
       chai.expect(productsModel.update('produto', 1)).to.eventually.be.true;
+    });
+    it('deve disparar um erro caso falhe o mysql', () => {
+      sinon.stub(db, 'query').rejects();
+      chai.expect(productsModel.update('produto', 1)).to.eventually.be.rejected;
+    });
+    it('deve retornar undefined se não encontrar o produto', () => {
+      sinon.stub(db, 'query').resolves(undefined);
+      chai.expect(productsModel.update('produto', 1)).to.eventually.be.false;
     });
   });
 
   describe('delete', () => {
-    it('deve retornar uma lista', () => {
-      sinon.stub(db, 'query').resolves([[{}]]);
-      chai.expect(productsModel.getAll()).to.eventually.be.true;
+    it('deve retornar true', () => {
+      sinon.stub(db, 'query').resolves(true);
+      chai.expect(productsModel.delete(1)).to.eventually.be.true;
+    });
+    it('deve disparar um erro caso falhe o mysql', () => {
+      sinon.stub(db, 'query').rejects();
+      chai.expect(productsModel.delete(1)).to.eventually.be.rejected;
+    });
+    it('deve retornar undefined se não encontrar o produto', () => {
+      sinon.stub(db, 'query').resolves(undefined);
+      chai.expect(productsModel.delete(1)).to.eventually.be.false;
     });
   });
 });
