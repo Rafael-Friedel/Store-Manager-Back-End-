@@ -26,7 +26,7 @@ describe('models/productsModel', () => {
   });
 
   describe('getById', () => {
-    it('deve retornar um objeto', () => {
+    it('deve retornar um produto', () => {
       sinon.stub(db, 'query').resolves({});
       chai.expect(productsModel.getById(1)).to.eventually.be.true;
     });
