@@ -91,7 +91,7 @@ describe('services/productsService', () => {
         .to.eventually.be.undefined;
     });
     it('deve retornar um objeto caso dê tudo certo', () => {
-      sinon.stub(productsModel, 'delete').resolves({});
+      sinon.stub(productsModel, 'delete').resolves();
       chai.expect(productsService.delete(1))
         .to.eventually.be.resolves;
     });
