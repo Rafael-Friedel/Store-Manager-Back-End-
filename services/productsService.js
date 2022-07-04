@@ -1,6 +1,6 @@
-const Joi = require('joi');
+// const Joi = require('joi');
 const { productsModel } = require('../models/productsModel');
-const { runSchema } = require('./validators');
+// const { runSchema } = require('./validators');
 
 const validName = (name) => { 
   if (!name) return { message: '"name" is required', code: 400 };
@@ -22,9 +22,9 @@ const productsService = {
     return { code: 200, product };
   },
 
-  validateParamsId: runSchema(Joi.object({
-    id: Joi.number().required().positive().integer(),
-  }).required()),
+  // validateParamsId: runSchema(Joi.object({
+  //   id: Joi.number().required().positive().integer(),
+  // }).required()),
 
   async add(name) {
     const valid = validName(name);
@@ -56,9 +56,9 @@ const productsService = {
     return { code: 204 };
   },
 
-  validateBodyAdd: runSchema(Joi.object({
-    name: Joi.string().min(5).required(),
-  }).validate({ name: '123456' })),
+  // validateBodyAdd: runSchema(Joi.object({
+  //   name: Joi.string().min(5).required(),
+  // }).validate({ name: '123456' })),
 };
 
 module.exports = { productsService, validName };
