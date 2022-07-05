@@ -113,7 +113,6 @@ describe('delete', () => {
         .to.eventually.have.property('code', 422);
     });
     it('deve retornar um objeto vazio caso produto  validName.', () => {
-      
       return chai.expect(productsService.validName('produto'))
         .to.eventually.be.deep.equal({});
     });

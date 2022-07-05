@@ -11,92 +11,91 @@ describe('models/productsModel', () => {
 
   describe('getAll', () => {
     it('deve retornar uma lista', () => {
-      sinon.stub(db, 'query').resolves([[{}]]);
-      chai.expect(productsModel.getAll()).to.eventually.be.true;
+      sinon.stub(db, 'query').resolves([[]]);
+      return chai.expect(productsModel.getAll()).to.eventually.be.deep.equal([]);
     });
 
     it('deve disparar um erro caso falhe o mysql', () => {
       sinon.stub(db, 'query').rejects();
-      chai.expect(productsModel.getAll()).to.eventually.be.rejected;
-    });
-    it('deve retornar undefined se não encontrar o produto', () => {
-      sinon.stub(db, 'query').resolves({});
-      chai.expect(productsModel.getAll()).to.eventually.be.false;
+      return chai.expect(productsModel.getAll()).to.eventually.be.rejected;
     });
   });
 
   describe('getById', () => {
     it('deve retornar um produto', () => {
-      sinon.stub(db, 'query').resolves({});
-      chai.expect(productsModel.getById(1)).to.eventually.be.true;
+      sinon.stub(db, 'query').resolves([[{}]]);
+      return chai.expect(productsModel.getById()).to.eventually.be.deep.equal({});
     });
     it('deve disparar um erro caso falhe o mysql', () => {
       sinon.stub(db, 'query').rejects();
-      chai.expect(productsModel.getById(1)).to.eventually.be.rejected;
+      return chai.expect(productsModel.getById(1)).to.eventually.be.rejected;
     });
     it('deve retornar undefined se não encontrar o produto', () => {
-      sinon.stub(db, 'query').resolves(undefined);
-      chai.expect(productsModel.getById(1)).to.eventually.be.false;
+      sinon.stub(db, 'query').resolves([[]]);
+      return chai.expect(productsModel.getById()).to.eventually.be.equal(undefined);
     });
   });
 
   describe('add', () => {
-    it('deve adicionar um objeto', () => {
-      sinon.stub(db, 'query').resolves({});
-      chai.expect(productsModel.add('produto')).to.eventually.be.true;
+    it('deve retonar um objeto com o id criado pelo banco de dados', () => {
+      sinon.stub(db, 'query').resolves([{ insertId:1 }]);
+      return chai.expect(productsModel.add('produto')).to.eventually.be.have.property('id', 1)
     });
     it('deve disparar um erro caso falhe o mysql', () => {
       sinon.stub(db, 'query').rejects();
-      chai.expect(productsModel.add('produto')).to.eventually.be.rejected;
+      return chai.expect(productsModel.add('produto')).to.eventually.be.rejected;
     });
     it('deve retornar undefined se não encontrar o produto', () => {
-      sinon.stub(db, 'query').resolves(undefined);
-      chai.expect(productsModel.add('produto')).to.eventually.be.false;
+      sinon.stub(db, 'query').resolves([{}]);
+      return chai.expect(productsModel.add('produto')).to.eventually.be.deep.equal({ id: undefined, name: 'produto'});
     });
   });
 
-  // describe('exist', () => {
-  //   it('deve retornar um true', () => {
-  //     sinon.stub(db, 'query').resolves(true);
-  //     chai.expect(productsModel.exist(1)).to.eventually.be.true;
-  //   });
-  //   it('deve disparar um erro caso falhe o mysql', () => {
-  //     sinon.stub(db, 'query').rejects();
-  //     chai.expect(productsModel.exist(1)).to.eventually.be.rejected;
-  //   });
-  //   it('deve retornar undefined se não encontrar o produto', () => {
-  //     sinon.stub(db, 'query').resolves(undefined);
-  //     chai.expect(productsModel.exist(1)).to.eventually.be.false;
-  //   });
-  // });
+  describe('exist', () => {
+    it('deve retornar um true', () => {
+      sinon.stub(db, 'query').resolves([[true]]);
+      return chai.expect(productsModel.exist(1)).to.eventually.be.true;
+    });
+    it('deve disparar um erro caso falhe o mysql', () => {
+      sinon.stub(db, 'query').rejects();
+      return chai.expect(productsModel.exist(1)).to.eventually.be.rejected;
+    });
+    it('deve retornar undefined se não encontrar o produto', () => {
+      sinon.stub(db, 'query').resolves([[]]);
+      return chai.expect(productsModel.exist(1)).to.eventually.be.false;
+    });
+  });
 
   describe('update', () => {
     it('deve retornar true', () => {
       sinon.stub(db, 'query').resolves(true);
-      chai.expect(productsModel.update('produto', 1)).to.eventually.be.true;
+      return chai.expect(productsModel.update('produto', 1)).to.eventually.be.true;
     });
     it('deve disparar um erro caso falhe o mysql', () => {
       sinon.stub(db, 'query').rejects();
-      chai.expect(productsModel.update('produto', 1)).to.eventually.be.rejected;
+      return chai.expect(productsModel.update('produto', 1)).to.eventually.be.rejected;
     });
-    it('deve retornar undefined se não encontrar o produto', () => {
-      sinon.stub(db, 'query').resolves(undefined);
-      chai.expect(productsModel.update('produto', 1)).to.eventually.be.false;
+    it('verifica se foi chamado a query', async () => {
+      const queryStub = sinon.stub(db, 'query').resolves();
+      await productsModel.update();
+      return chai.expect(queryStub.calledOnce).to.be.true;
+     
     });
   });
 
   describe('delete', () => {
     it('deve retornar true', () => {
       sinon.stub(db, 'query').resolves(true);
-      chai.expect(productsModel.delete(1)).to.eventually.be.true;
+      return chai.expect(productsModel.delete(1)).to.eventually.be.true;
     });
     it('deve disparar um erro caso falhe o mysql', () => {
       sinon.stub(db, 'query').rejects();
-      chai.expect(productsModel.delete(1)).to.eventually.be.rejected;
+      return chai.expect(productsModel.delete(1)).to.eventually.be.rejected;
     });
-    it('deve retornar undefined se não encontrar o produto', () => {
-      sinon.stub(db, 'query').resolves(undefined);
-      chai.expect(productsModel.delete(1)).to.eventually.be.false;
+    it('verifica se foi chamado a query', async () => {
+      const queryStub = sinon.stub(db, 'query').resolves();
+      await productsModel.delete();
+      return chai.expect(queryStub.calledOnce).to.be.true;
     });
   });
 });
