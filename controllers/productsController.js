@@ -6,7 +6,7 @@ const productsController = {
     res.status(200).json(allProducts);
   },
   async getById(req, res) {
-    const { id } = await productsService.validateParamsId(req.params);
+    const { id } = req.params;
     const { product, code, message } = await productsService.getById(id);
     if (message) return res.status(code).json({ message });
     res.status(code).json(product);

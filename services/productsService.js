@@ -1,6 +1,4 @@
-const Joi = require('joi');
 const { productsModel } = require('../models/productsModel');
-const { runSchema } = require('./validators');
 
 const productsService = {
   async listAll() {
@@ -27,11 +25,6 @@ const productsService = {
     if (!product) return { code: 404, message: 'Product not found' };
     return { code: 200, product };
   },
-
-  validateParamsId: runSchema(Joi.object({
-    id: Joi.number().required().positive().integer(),
-  }).required()),
-
   async add(name) {
     const product = await productsModel.add(name);
     return { product, code: 201 };
