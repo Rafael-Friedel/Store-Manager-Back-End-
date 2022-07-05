@@ -46,10 +46,6 @@ const productsService = {
     await productsModel.delete(id);
     return { code: 204 };
   },
-
-  // validateBodyAdd: runSchema(Joi.object({
-  //   name: Joi.string().min(5).required(),
-  // }).validate({ name: '123456' })),
 };
 
 module.exports = { productsService };
