@@ -2,18 +2,24 @@ const Joi = require('joi');
 const { productsModel } = require('../models/productsModel');
 const { runSchema } = require('./validators');
 
-const validName = (name) => { 
-  if (!name) return { message: '"name" is required', code: 400 };
-  if (name.length < 5) {
-    return { message: '"name" length must be at least 5 characters long', code: 422 };
-  }
-  return 'name válido';
-};
-
 const productsService = {
   async listAll() {
     const allProducts = await productsModel.getAll();
     return allProducts;
+  },
+
+  async validName(name) {
+    if (!name) return { message: '"name" is required', code: 400 };
+    if (name.length < 5) {
+      return { message: '"name" length must be at least 5 characters long', code: 422 };
+    }
+    return {};
+  },
+
+  async exist(id) {
+    const existProduct = await productsModel.exist(id);
+    if (!existProduct) return { message: 'Product not found', code: 404 };
+    return {};
   },
 
   async getById(id) {
@@ -27,31 +33,16 @@ const productsService = {
   }).required()),
 
   async add(name) {
-    const valid = validName(name);
-    if (valid.message) return valid;
     const product = await productsModel.add(name);
     return { product, code: 201 };
   },
 
-  async exist(id) {
-    const allProducts = await productsService.listAll();
-    const exist = allProducts.some((p) => p.id === Number(id));
-    if (!exist) return { message: 'Product not found', code: 404 };
-    return true;
-  },
-
   async update(name, id) {
-    const valid = validName(name);
-    const existProduct = await productsService.exist(id);
-    if (existProduct.message) return { message: 'Product not found', code: 404 };
-    if (valid.message) return valid;
     await productsModel.update(name, id);
     return { code: 200, response: { id, name } };
   },
 
   async delete(id) {
-    const existProduct = await productsService.exist(id);
-    if (existProduct.message) return { message: 'Product not found', code: 404 };
     await productsModel.delete(id);
     return { code: 204 };
   },
@@ -61,4 +52,4 @@ const productsService = {
   // }).validate({ name: '123456' })),
 };
 
-module.exports = { productsService, validName };
+module.exports = { productsService };

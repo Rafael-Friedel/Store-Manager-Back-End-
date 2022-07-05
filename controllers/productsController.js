@@ -14,23 +14,28 @@ const productsController = {
 
   async newProduct(req, res) {
     const { name } = req.body;
-    const { product, message, code } = await productsService.add(name);
-    if (message) res.status(code).json({ message });
+    const valid = await productsService.validName(name);
+    if (valid.message) return res.status(valid.code).json({ message: valid.message });
+    const { product, code } = await productsService.add(name);
     res.status(code).json(product);
   },
 
   async update(req, res) {
     const { id } = req.params;
     const { name } = req.body;
+    const valid = await productsService.validName(name);
+    if (valid.message) return res.status(valid.code).json({ message: valid.message });
+    const { message, code } = await productsService.exist(id);
+    if (message) return res.status(code).json({ message });
     const update = await productsService.update(name, id);
-    if (update.message) return res.status(update.code).json({ message: update.message });
     res.status(update.code).json(update.response);
   },
 
   async delete(req, res) {
     const { id } = req.params;
+    const { message, code } = await productsService.exist(id);
+    if (message) return res.status(code).json({ message });
     const deleted = await productsService.delete(id);
-    if (deleted.message) return res.status(deleted.code).json({ message: deleted.message });
     res.sendStatus(deleted.code);
   },
 };
