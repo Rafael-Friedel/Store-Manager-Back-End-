@@ -1,5 +1,5 @@
+const { productsModel } = require('../models/productsModel');
 const { saleModel } = require('../models/saleModel');
-const { productsService } = require('./productsService');
 
 const saleService = {
   async listAll() {
@@ -25,7 +25,7 @@ const saleService = {
   },
 
   async validationsBody(body) {
-    const allProducts = await productsService.listAll();
+    const allProducts = await productsModel.getAll();
     const response = await body.map(({ productId, quantity }) => {
       if (!productId) return { message: '"productId" is required', code: 400 };
       const exist = allProducts.some(({ id }) => id === productId);
