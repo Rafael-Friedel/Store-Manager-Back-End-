@@ -19,7 +19,7 @@ O projeto ainda está em desenvolvimento e as próximas atualizações serão vo
 
 ### Desafios
 
-Realizar um CRUD completo e 100% testado. Sem usar ORM's, usando querys puras somente.
+Realizar um CRUD completo e 100% testado de forma unitária. Sem usar ORM's, usando querys puras somente.
 
 <details>
 <summary><strong> ⚠️ Configurações mínimas para execução do projeto</strong></summary><br />
