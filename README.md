@@ -1,6 +1,6 @@
 # Store-manager
 
-> A ideia do projeto é criar uma aplicação back-end onde simule uma loja, onde possa cadastrar novas vendas, cadastrar novos produtos, e fazer consultas no estoque, por determinado produto pelo id ou buscar todos. É um pequeno CRUD. o Projeto está 100% testado de forma unitária
+> A ideia do projeto é criar uma aplicação back-end onde simule uma loja, onde possa cadastrar novas vendas, cadastrar novos produtos, e fazer consultas no estoque, por determinado produto pelo id ou buscar todos. É um pequeno CRUD.
 
 ### Ajustes e melhorias
 
