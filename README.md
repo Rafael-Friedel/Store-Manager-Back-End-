@@ -54,7 +54,7 @@ Na sua máquina você deve ter:
  
  
  ```
- cd Store-Manager-Back-End- && npm run compose:up
+ cd Store-Manager-Back-End- && docker compose up -d --build
  ```
 
  ```
