@@ -58,7 +58,7 @@ Na sua máquina você deve ter:
  ```
 
  ```
- docker start app_backend db
+ docker start store_manager store_manager_db
  ```
  
  Para conferir a aplicação back-end basta acessar no seu navegador:
