@@ -15,6 +15,7 @@ O projeto ainda está em desenvolvimento e as próximas atualizações serão vo
 - Node
 - Docker
 - MySQL
+- JavaScript
 - chai/mocha/sinon/chai-as-promised para testar a aplicação
 
 
