@@ -63,6 +63,6 @@ Na sua máquina você deve ter:
  
  Para conferir a aplicação back-end basta acessar no seu navegador:
  ```
- http://localhost:3001/
+ http://localhost:3000/
  ```
 </details>
